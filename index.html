@@ -4,8 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PP</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/funciones.js"></script>
 </head>
 <body>
-    
+    <div >
+        <!-- Tabla Principal -->
+        <div ><table>
+            <thead>
+                <th>Nombre</th>
+                <th>Cuatrimestre</th>
+                <th>Fecha Final</th>
+                <th>Turno</th>
+            </thead>
+            <tbody id="bodytable"></tbody>
+        </table></div>
+        
+        <div class="divPersona" id="formPersona" hidden >
+            <div class="equis">
+                <input type="button" id="end" class="btnend" value="X"> 
+            </div>
+            <label for="nombre">Nombre</label><br>
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese su Nombre" required><br>
+            <label for="cuatrimestre">Cuatrimestre</label><br>
+           <select name="cuatrimestre" id="cuatrimestre">
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+           </select><br>
+            <!-- <input type="text" id="cuatrimestre" name="cuatrimestre" class="form-control" placeholder="Ingrese un Cuatrimestre"
+                required><br> -->
+                <label for="fecha">Fecha Final</label><br>
+            <input type="date" id="fecha" name="fecha" class="form-control" placeholder="Ingrese Fecha" required><br>
+        
+            <label for="turno">Turno</label><br>
+            <input type="radio" id="manana" name="turno" value="Mañana">
+            <label for="manana">Mañana</label><br>
+            <input type="radio" id="noche" name="turno" value="Noche">
+            <label for="noche">Noche</label><br>
+            
+            <div id="botones">
+                <input type="button" id="btnDelete" value="Eliminar">
+                <input type="button" id="btnEdit" value="Modificar">
+            </div>
+
+        </div>
+        <div id="loading" class="spinner" hidden>
+            <img src="./img/loading.gif" alt="" class="hide-child">
+        </div>
+    </div>
 </body>
 </html>
