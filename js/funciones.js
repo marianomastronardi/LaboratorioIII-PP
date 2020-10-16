@@ -83,7 +83,7 @@ function FillGrid(personas) {
             bmt.appendChild(tr);
         });
     } catch (error) {
-        console.log(error);
+        alert(error);
     }
 }
 
@@ -158,7 +158,6 @@ function Eliminar() {
         http.setRequestHeader('Content-type', 'application/json');
         http.send(element)
     } catch (error) {
-        console.log(error);
         hideSpinner(true);
     }
 }
@@ -179,7 +178,6 @@ function resDelete() {
             hideSpinner(true);
         }
     } catch (error) {
-        console.log(error);
         hideSpinner(true);
     }
 }
@@ -190,7 +188,7 @@ function Modificar() {
         iNombre.removeAttribute('class', 'errValidation');
 /*         if ($('cuatrimestre').length > 3) {
             iCuatrimestre.removeAttribute('class', 'errValidation'); */
-            if (new Date($('fecha')) < Date.now()) {
+            if (new Date($('fecha')) > Date.now()) {
                 iFecha.removeAttribute('class', 'errValidation');
                 if ((iManana.checked || iNoche.checked)) {
                     iManana.removeAttribute('class', 'errValidation');
@@ -204,13 +202,12 @@ function Modificar() {
                         obj.id = iID;
                         obj.nombre = $('nombre');
                         obj.cuatrimestre = $('cuatrimestre');
-                        obj.fechaFinal = $('fecha');
+                        obj.fechaFinal = formatServerDate($('fecha'));
                         obj.turno = (iManana.checked ? $('manana') : $('noche'));
                         let element = JSON.stringify(obj);
                         http.setRequestHeader('Content-type', 'application/json');
                         http.send(element);
                     } catch (error) {
-                        console.log(error);
                         hideSpinner(true);
                     }
                 } else {
@@ -218,15 +215,15 @@ function Modificar() {
                     iTurno.setAttribute('class', 'errValidation');
                 }
             } else {
-                console.log('Fecha incorrecta');
+                alert('Fecha incorrecta');
                 iFecha.setAttribute('class', 'errValidation');
             }
        /*  } else {
-            console.log('Cuatrimestre incorrecto');
+            alert('Cuatrimestre incorrecto');
             iCuatrimestre.setAttribute('class', 'errValidation');
         } */
     } else {
-        console.log('Nombre incorrecto');
+        alert('Nombre incorrecto');
         iNombre.setAttribute('class', 'errValidation');
     }
 
@@ -237,11 +234,8 @@ function resEdit() {
         if (http.readyState == 4) {
             if (http.status === 200) {
                 let element = JSON.parse(http.responseText);
-                console.log(element.type);
                 if (element.type == 'ok') {
                     newTR = getTR();
-                    console.log(newTR);
-                    console.log(row);
                     bmt.replaceChild(newTR, row);
                 }
                 row = null;
@@ -252,7 +246,6 @@ function resEdit() {
             hideSpinner(true);
         }
     } catch (error) {
-        console.log(error);
         hideSpinner(true);
     }
 }
@@ -276,7 +269,7 @@ function getTR() {
                     tn = document.createTextNode($('cuatrimestre'));
                     break;
                 case 3:
-                    tn = document.createTextNode($('fecha'));
+                    tn = document.createTextNode(formatServerDate($('fecha')));
                     break;
                 case 4:
                     tn = document.createTextNode((iManana.checked ? $('manana') : $('noche')));
@@ -293,10 +286,15 @@ function getTR() {
         tr.addEventListener('dblclick', modalShow);
         return tr;
     } catch (error) {
-        console.log(error);
+        alert(error);
     }
 }
 
 function formatDate(date) {
     return date.split("/").reverse().join("-");
+}
+
+function formatServerDate(date) {
+    console.log(date.split("-").reverse().join("/"));
+    return date.split("-").reverse().join("/");
 }
