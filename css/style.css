@@ -133,5 +133,10 @@ td, th{
 }
 
 select{
+   
+    margin: 8px;
+    border-radius: 4px;
+    padding: 12px 20px;
+    box-sizing: border-box;
     width: 5rem;
 }
